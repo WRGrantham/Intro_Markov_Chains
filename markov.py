@@ -57,10 +57,8 @@ def make_chains(text_string):
 
 	# print(chains.items())
 
-	for k, v in chains.items(): 
-		print(k, ": ", v)	
-
-
+	# for k, v in chains.items(): 
+	# 	print(k, ": ", v)	
 
 	return chains
 
@@ -71,8 +69,32 @@ def make_text(chains):
 	words = []
 
 	# your code goes here
+	
+	random_key = choice(list(chains.keys())) # picks a random key & turns it into a list
+											 # so we can index it for the 2nd index for 
+											 # new key
+	words.extend(random_key) # adds works in tuple as individual items to the words list
+
+	# print("this is the random key", random_key)
+	while random_key in chains:
+		
+		new_link = random_key[1] # this becomes the first index in the new tuple key
+
+		# words.append(new_link) # adds the second index to the words list bc it's the second 
+							   # word in the original tuple key from random key
+		
+		value_at_key = chains[random_key] # gives me the list at that key
+		
+		random_new_word = choice(value_at_key) # picks a random word from the list to make 
+											   # new key tuple
+		words.append(random_new_word) #add this word to the list to keep building sentence
+		
+		random_key = (new_link, random_new_word) # reassigning new to new key we generated
+
+	# print("this is words", words)
 
 	return " ".join(words)
+	# print(" ".join(words))
 
 
 input_path = "green-eggs.txt"
@@ -87,3 +109,4 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 # print random_text
+print(random_text)
